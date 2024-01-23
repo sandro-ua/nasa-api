@@ -5,7 +5,7 @@ import pytest
 NASA_API_KEY = "x88Trcn4V9HNXxQkviO8bJ5Ubo2NhGQFQ9Ui9xGW"
 NASA_API_URL = "https://api.nasa.gov"
 
-# example 
+# example
 # https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY 
 
 def test_nasa_image():
