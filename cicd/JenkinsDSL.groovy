@@ -1,12 +1,16 @@
 pipelineJob('NASA_REGRESSION_DSL_GENERATED') {
     definition {
-        scm {
-            git {
-                remote {
-                    git 'https://github.com/sandro-ua/nasa-api'
+        cpsScm {
+            scm {
+                git {
+                    // Git repository URL
+                    remote {
+                        git 'https://github.com/sandro-ua/nasa-api'
+                    }
+                    branch 'master'
                 }
             }
+            scriptPath('JenkinsFile.groovy')
         }
-        scriptPath('JenkinsFile.groovy')
     }
 }
