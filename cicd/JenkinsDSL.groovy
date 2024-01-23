@@ -4,7 +4,7 @@ pipelineJob('NASA_REGRESSION_DSL_GENERATED') {
             scm {
                 git('https://github.com/sandro-ua/nasa-api')
             }
-			scriptPath('JenkinsFile.groovy')
+			scriptPath('cicd/JenkinsFile.groovy')
         }
     }
 }
