@@ -1,10 +1,10 @@
-pipelineJob('NASA_REGRESSION_2') {
+pipelineJob('NASA_REGRESSION_DSL_GENERATED') {
     definition {
         cpsScm {
             scm {
                 git {
                     remote {
-                        github('https://github.com/sandro-ua/nasa-api')
+                        git 'https://github.com/sandro-ua/nasa-api'
                     }
                 }
             }
