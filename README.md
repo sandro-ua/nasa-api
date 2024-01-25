@@ -13,4 +13,3 @@ ERROR: Checkout failed
 stderr: Committer identity unknown
 
 Workaround: add option manually or move the pipeline script into DSL file itself.
- 
