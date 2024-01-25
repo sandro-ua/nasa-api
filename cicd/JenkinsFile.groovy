@@ -1,8 +1,18 @@
+def printCommandResult(String command) {
+    script {
+        def result = sh(script: ". venv/bin/activate && " + command, returnStdout: true).trim()
+        echo "Command: ${command}"
+        echo "Command result: ${result}"
+    }
+}
+
 pipeline {
     agent any
+    
     environment {
         PATH = "/usr/local/bin:$PATH" // Add the path to pipenv
     }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -23,15 +33,18 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh ". venv/bin/activate && pytest tests/epic_tests.py --alluredir=target/allure-results'"
+                    printCommandResult('pip list')
+                    printCommandResult('echo $PATH')
+
+                    sh '. venv/bin/activate && chmod +x tests/epic_tests.py'
+                    sh '. venv/bin/activate && pytest tests/epic_tests.py --html=report.html --self-contained-html'
                 }
             }
         }
         
-        stage('Generate Allure Report') {
+        stage('Generate Report') {
             steps {
-                echo 'Generating Allure report...'
-                sh 'allure generate target/allure-results -o target/allure-report'
+                echo 'Generating report...'
             }
         }
     }
@@ -48,13 +61,7 @@ pipeline {
         }
 
         always {
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'target/allure-results']]
-            ])
+            echo 'Post steps to be executed'
         }
     }
 }

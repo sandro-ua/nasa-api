@@ -3,6 +3,7 @@
 .pytest_cache/
 tests/__pycache__/
 venv/
+target/
 nasa-api.txt
 .*            # Ignore all hidden files
 !.gitignore   # But include the .gitignore file
