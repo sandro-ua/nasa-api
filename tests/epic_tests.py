@@ -6,7 +6,7 @@ NASA_API_KEY = "x88Trcn4V9HNXxQkviO8bJ5Ubo2NhGQFQ9Ui9xGW"
 NASA_API_URL = "https://api.nasa.gov"
 
 # example
-# https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY 
+# https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
 
 def test_nasa_image():
     url = f"{NASA_API_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
@@ -15,7 +15,15 @@ def test_nasa_image():
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
     
     data = response.json()
-    assert 'image' in data, "image not found in API response"
+    print("Response Data:", data)  # Print response data for debugging
+    
+    # Ensure 'image' key is present and has the expected value
+    assert 'image' in data[0], "Image key not found in API response"
+    image_value = data[0]['image']
+    print("Image Value:", image_value)  # Print image value for debugging
+    
+    expected_image_value = "epic_1b_20190530011359"
+    assert image_value == expected_image_value, f"Expected image value: {expected_image_value}, Actual image value: {image_value}"
 
 
 def test_nasa_identifier():
@@ -26,4 +34,4 @@ def test_nasa_identifier():
     
     data = response.json()
     print(data)
-    assert 'identifier' in data, "identifier not found in API response"
+    assert 'identifier' in data[0], "identifier not found in API response"
