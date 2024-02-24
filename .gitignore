@@ -6,5 +6,4 @@ venv/
 target/
 nasa-api.txt
 Pipfile*
-.*            # Ignore all hidden files
 !.gitignore   # But include the .gitignore file

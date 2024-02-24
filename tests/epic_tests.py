@@ -7,6 +7,7 @@ NASA_API_URL = "https://api.nasa.gov"
 
 # example
 # https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
+# documentation https://epic.gsfc.nasa.gov/about/api
 
 def test_nasa_image():
     url = f"{NASA_API_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
@@ -35,3 +36,9 @@ def test_nasa_identifier():
     data = response.json()
     print(data)
     assert 'identifier' in data[0], "identifier not found in API response"
+
+# Positive scenario
+def test_successful_data_retrieval():
+    response = requests.get("https://epic.gsfc.nasa.gov/api/natural")
+    assert response.status_code == 200
+    assert len(response.json()) > 0
