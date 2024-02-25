@@ -34,11 +34,10 @@ def test_nasa_identifier():
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
     
     data = response.json()
-    print(data)
+    print("Response Data:", data)  # Print response data for debugging
     assert 'identifier' in data[0], "identifier not found in API response"
 
-# Positive scenario
+# Test that is expected to fail
 def test_successful_data_retrieval():
     response = requests.get("https://epic.gsfc.nasa.gov/api/natural")
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert response.status_code == 0 # Should be 200, expect failure here
