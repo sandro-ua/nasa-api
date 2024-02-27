@@ -46,7 +46,7 @@ pipeline {
                 script {
                     printCommandResult('echo $PATH')
                     sh '. venv/bin/activate && chmod +x tests/epic_tests.py'
-                    sh '. venv/bin/activate && pytest tests/epic_tests.py --html=results/report.html --self-contained-html'
+                    sh '. venv/bin/activate && pytest tests/epic_tests.py --html=results/report.html --self-contained-html --junitxml=test-results.xml'
                 }
             }
         }
@@ -65,8 +65,8 @@ pipeline {
 
         always {
             echo 'Post steps to be executed.'
+            echo 'Publish the HTML report'
 
-            // Publish the HTML report
             publishHTML(target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
@@ -75,6 +75,9 @@ pipeline {
                 reportFiles: 'report.html', // Specify the filename of your pytest-html report
                 reportName: 'Pytest HTML Report' // Provide a name for the HTML report
             ])
+            
+			echo 'Publish JUnnit test results'
+			junit 'test-results.xml'
         }
     }
 }
