@@ -4,10 +4,6 @@ import constants as const
 NASA_API_KEY = "x88Trcn4V9HNXxQkviO8bJ5Ubo2NhGQFQ9Ui9xGW"
 
 
-# example
-# https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
-# documentation https://epic.gsfc.nasa.gov/about/api
-
 def test_nasa_image():
     url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
     response = requests.get(url)
@@ -36,7 +32,7 @@ def test_nasa_identifier():
     print("Response Data:", data)  # Print response data for debugging
     assert 'identifier' in data[0], "identifier not found in API response"
 
-# Test that is expected to fail
+
 def test_successful_data_retrieval():
     response = requests.get("https://epic.gsfc.nasa.gov/api/natural")
     assert response.status_code == 200 # Should be 200, expect failure here
