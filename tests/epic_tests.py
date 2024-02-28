@@ -40,4 +40,4 @@ def test_nasa_identifier():
 # Test that is expected to fail
 def test_successful_data_retrieval():
     response = requests.get("https://epic.gsfc.nasa.gov/api/natural")
-    assert response.status_code == 0 # Should be 200, expect failure here
+    assert response.status_code == 200 # Should be 200, expect failure here
