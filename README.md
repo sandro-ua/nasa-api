@@ -13,3 +13,9 @@ ERROR: Checkout failed
 stderr: Committer identity unknown
 
 Workaround: (1 option) remove option "Create a tag for every build" in pipeline configuration. (2 option) move the pipeline script into DSL file itself.
+
+## Query example
+https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
+
+## NASA EPIC documentation link 
+documentation https://epic.gsfc.nasa.gov/about/api

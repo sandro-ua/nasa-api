@@ -1,16 +1,15 @@
-# tests/test_nasa_api.py
 import requests
-import pytest
+import constants as const
 
 NASA_API_KEY = "x88Trcn4V9HNXxQkviO8bJ5Ubo2NhGQFQ9Ui9xGW"
-NASA_API_URL = "https://api.nasa.gov"
+
 
 # example
 # https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
 # documentation https://epic.gsfc.nasa.gov/about/api
 
 def test_nasa_image():
-    url = f"{NASA_API_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
+    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
     response = requests.get(url)
 
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
@@ -28,7 +27,7 @@ def test_nasa_image():
 
 
 def test_nasa_identifier():
-    url = f"{NASA_API_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
+    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
     response = requests.get(url)
 
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
