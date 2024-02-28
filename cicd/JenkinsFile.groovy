@@ -75,9 +75,9 @@ pipeline {
                 reportFiles: 'report.html', // Specify the filename of your pytest-html report
                 reportName: 'Pytest HTML Report' // Provide a name for the HTML report
             ])
-            
+
 			echo 'Publish JUnnit test results'
-			junit 'test-results.xml'
+			junit skipPublishingChecks: true, testResults: 'test-results.xml'
         }
     }
 }
