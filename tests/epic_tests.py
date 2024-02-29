@@ -1,11 +1,9 @@
 import requests
 import constants as const
 
-NASA_API_KEY = "x88Trcn4V9HNXxQkviO8bJ5Ubo2NhGQFQ9Ui9xGW"
-
 
 def test_nasa_image():
-    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
+    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={const.API_KEY}"
     response = requests.get(url)
 
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
@@ -23,7 +21,7 @@ def test_nasa_image():
 
 
 def test_nasa_identifier():
-    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={NASA_API_KEY}"
+    url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={const.API_KEY}"
     response = requests.get(url)
 
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
