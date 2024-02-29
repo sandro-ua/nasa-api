@@ -1,9 +1,12 @@
 # Created by pytest automatically.
 
 .pytest_cache/
+__pycache__/
 tests/__pycache__/
 venv/
 target/
 nasa-api.txt
+test-results.xml
 Pipfile*
 !.gitignore   # But include the .gitignore file
+results/

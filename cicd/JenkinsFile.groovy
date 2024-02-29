@@ -78,6 +78,13 @@ pipeline {
 
 			echo 'Publish JUnnit test results'
 			junit skipPublishingChecks: true, testResults: 'test-results.xml'
+
+            cleanWs(cleanWhenNotBuilt: false, 
+    		    deleteDirs: true, 
+    		    disableDeferredWipeout: true, 
+    		    notFailBuild: true, 
+    		    patterns: [[pattern: '.gitignore', type: 'INCLUDE'], 
+    		    [pattern: '.propsfile', type: 'EXCLUDE']])
         }
     }
 }
