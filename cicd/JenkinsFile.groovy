@@ -76,7 +76,7 @@ pipeline {
                 reportName: 'Pytest HTML Report' // Provide a name for the HTML report
             ])
 
-			echo 'Publish JUnnit test results'
+			echo 'Publish JUnit test results'
 			junit skipPublishingChecks: true, testResults: 'test-results.xml'
 
             cleanWs(cleanWhenNotBuilt: false, 
