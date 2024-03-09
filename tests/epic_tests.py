@@ -16,13 +16,12 @@ def test_nasa_image_key():
 
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
     data = response.json()
-    print("Response Data:", data)  # Print response data for debugging
-    log.logger.info("test")
+    log.logger.info(f"Response Data: {data}")
 
     # Ensure 'image' key is present and has the expected value
     assert 'image' in data[0], "Image key not found in API response"
     image_value = data[0]['image']
-    print("Image Value:", image_value)  # Print image value for debugging
+    log.logger.info(f"Image Value:: {image_value}")
 
     expected_image_value = "epic_1b_20190530011359"
     assert image_value == expected_image_value, f"Expected image value: {expected_image_value}, Actual image value: {image_value}"
@@ -35,7 +34,7 @@ def test_nasa_identifier():
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
 
     data = response.json()
-    print("Response Data:", data)  # Print response data for debugging
+    log.logger.info(f"Response Data: {data}")
     assert 'identifier' in data[0], "identifier not found in API response"
 
 
