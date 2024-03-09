@@ -1,7 +1,6 @@
-import urllib
-
 import requests
 import constants as const
+import logger as log
 
 
 class HTTPConnection:
@@ -17,10 +16,17 @@ class HTTPConnection:
         2019-05-30 = value
         """
 
-        url = (
-            f"{self.base_url}/EPIC/api/{kwargs.get('param')}/{kwargs.get('sub_param')}/{kwargs.get('value')}?api_key={const.API_KEY}")
+        url = f"{self.base_url}/EPIC/api/{kwargs.get('param')}/{kwargs.get('sub_param')}/{kwargs.get('value')}?api_key={const.API_KEY}"
+        log.logger.info(f"URL: {self.mask_api_key(url)}")
         response = requests.request("GET", url)
+        log.logger.debug(response.text)
         return response
+
+    def mask_api_key(self, url):
+        """Mask the API key in the URL"""
+        api_key_index = url.find(const.API_KEY)
+        masked_url = url[:api_key_index] + "*********"  # Replace API key with asterisks
+        return masked_url
 
     def parse_response(self, response):
         try:

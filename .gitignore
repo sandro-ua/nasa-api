@@ -6,6 +6,7 @@ tests/__pycache__/
 venv/
 target/
 nasa-api.txt
+tests/logs/
 test-results.xml
 Pipfile*
 !.gitignore   # But include the .gitignore file

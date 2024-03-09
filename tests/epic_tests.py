@@ -1,5 +1,6 @@
 import requests
 import HTTPConnection as http
+import logger as log
 
 
 def test_nasa_image_response_code():
@@ -16,6 +17,7 @@ def test_nasa_image_key():
     assert response.status_code == 200, f"Request failed with status code {response.status_code}"
     data = response.json()
     print("Response Data:", data)  # Print response data for debugging
+    log.logger.info("test")
 
     # Ensure 'image' key is present and has the expected value
     assert 'image' in data[0], "Image key not found in API response"
