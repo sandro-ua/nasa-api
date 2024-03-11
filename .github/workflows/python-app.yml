@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      
+
     # Setup Python
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -41,7 +41,10 @@ jobs:
 
     # Step to save log file to the artifacts directory
     - name: Save log file to artifacts
-      run: cp tests/logs/output.log $GITHUB_WORKSPACE/results/output.log
+      run: |
+        pwd
+        ls -l
+        cp logs/output.log $GITHUB_WORKSPACE/results/output.log
 
     # Set $GITHUB_WORKSPACE variable
     - name: Set output
