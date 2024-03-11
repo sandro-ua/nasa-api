@@ -1,4 +1,3 @@
-import requests
 import HTTPConnection as http
 import logger as log
 

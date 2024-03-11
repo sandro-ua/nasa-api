@@ -5,9 +5,9 @@ name: pytest NASA API (EPIC tests)
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "development" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "development" ]
 
 permissions:
   contents: read
