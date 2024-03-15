@@ -7,7 +7,7 @@ class HTTPConnection:
     def __init__(self):
         self.base_url = const.BASE_URL
 
-    def send_request(self, **kwargs):
+    def send_request(self, method, **kwargs):
         """Send GET request to https://api.nasa.gov/EPIC endpoint
         Example url: https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY
         EPIC = endpoint
@@ -16,9 +16,17 @@ class HTTPConnection:
         2019-05-30 = value
         """
 
-        url = f"{self.base_url}/EPIC/api/{kwargs.get('param')}/{kwargs.get('sub_param')}/{kwargs.get('value')}?api_key={const.API_KEY}"
+        url = f"{self.base_url}/EPIC/api"
+        if kwargs.get('param') is not None:
+            url += f"/{kwargs.get('param')}"
+        if kwargs.get('sub_param') is not None:
+            url += f"/{kwargs.get('sub_param')}"
+        if kwargs.get('value') is not None:
+            url += f"/{kwargs.get('value')}"
+
+        url += f"?api_key={const.API_KEY}"  # append API_KEY
         log.logger.info(f"URL: {self.mask_api_key(url)}")
-        response = requests.request("GET", url)
+        response = requests.request(method, url)
         log.logger.debug(response.text)
         return response
 

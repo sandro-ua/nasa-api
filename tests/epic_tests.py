@@ -1,44 +1,48 @@
-import requests
+import pytest
 import HTTPConnection as http
-import logger as log
 
 
-def test_nasa_image_response_code():
-    # url = f"{const.BASE_URL}/EPIC/api/natural/date/2019-05-30?api_key={const.API_KEY}"
-    http_c = http.HTTPConnection()
-    response = http_c.send_request(param="natural", sub_param="date", value="2019-05-30")
-    assert response.status_code == 200, f"Request failed with status code {response.status_code}"
+@pytest.fixture(scope="module")
+def http_c():
+    """
+    Fixture to create an instance of HTTPConnection before tests.
+    """
+    return http.HTTPConnection()
 
 
-def test_nasa_image_key():
-    http_c = http.HTTPConnection()
-    response = http_c.send_request(param="natural", sub_param="date", value="2019-05-30")
+@pytest.mark.parametrize("param, expected_status_code", [("natural", 200)])
+def test_nasa_epic_natural_response_code(http_c, param, expected_status_code):
+    response = http_c.send_request(method="GET", param=param)
+    assert response.status_code == expected_status_code
 
-    assert response.status_code == 200, f"Request failed with status code {response.status_code}"
+
+def test_nasa_epic_natural_color_metadata(http_c):
+    response = http_c.send_request(method="GET", param="natural")
+    # Verify that the response contains the expected data structure (e.g., image name, date, caption)
     data = response.json()
-    print("Response Data:", data)  # Print response data for debugging
-    log.logger.info("test")
-
-    # Ensure 'image' key is present and has the expected value
-    assert 'image' in data[0], "Image key not found in API response"
-    image_value = data[0]['image']
-    print("Image Value:", image_value)  # Print image value for debugging
-
-    expected_image_value = "epic_1b_20190530011359"
-    assert image_value == expected_image_value, f"Expected image value: {expected_image_value}, Actual image value: {image_value}"
+    assert "image" in data[0]
+    assert "date" in data[0]
+    assert "caption" in data[0]
 
 
-def test_nasa_identifier():
-    http_c = http.HTTPConnection()
-    response = http_c.send_request(param="natural", sub_param="date", value="2019-05-30")
-
-    assert response.status_code == 200, f"Request failed with status code {response.status_code}"
-
+def test_nasa_epic_enhanced_color_metadata(http_c):
+    response = http_c.send_request(method="GET", param="enhanced")
+    # Verify that the response contains the expected data structure (e.g., image name, date, caption)
     data = response.json()
-    print("Response Data:", data)  # Print response data for debugging
-    assert 'identifier' in data[0], "identifier not found in API response"
+    assert "image" in data[0]
+    assert "date" in data[0]
+    assert "caption" in data[0]
 
 
-def test_successful_data_retrieval():
-    response = requests.get("https://epic.gsfc.nasa.gov/api/natural")
-    assert response.status_code == 200  # Should be 200, expect failure here
+@pytest.mark.parametrize("invalid_param", [
+    ("invalid_endpoint", "date", "2015/10/31"),  # Invalid endpoint URL
+    ("natural", "", "2015/10/31"),  # Missing date parameter
+    ("enhanced", "", "2015/10/31"),  # Missing required parameter
+])
+def test_error_handling(http_c, invalid_param):
+    # Send a request with invalid parameters
+    param, sub_param, value = invalid_param
+    response = http_c.send_request(method="GET", param=param, sub_param=sub_param, value=value)
+
+    # Verify that it returns an appropriate error status code
+    assert response.status_code == 404, f"Expected status code 404 for {param}/{sub_param}/{value}, but received {response.status_code}"

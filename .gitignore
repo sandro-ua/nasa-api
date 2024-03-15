@@ -11,3 +11,4 @@ test-results.xml
 Pipfile*
 !.gitignore   # But include the .gitignore file
 results/
+.idea/
